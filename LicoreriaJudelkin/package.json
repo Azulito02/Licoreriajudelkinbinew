@@ -1,0 +1,17 @@
+{
+  "name": "backend_licoreria_judelkin",
+  "version": "1.0.0",
+  "description": "Esta es una aplicacion de licoreria.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Julio Olivas - Milton Lopez",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "mysql": "^2.18.1",
+    "xlsx": "^0.18.5"
+  }
+}
