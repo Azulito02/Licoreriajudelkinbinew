@@ -6,7 +6,6 @@ import Chart from 'chart.js/auto';
 import '../styles/App.css';
 import html2canvas from 'html2canvas';
 import Footer from '../components/Footer';
-
 import emailjs from 'emailjs-com';
 import * as XLSX from 'xlsx';
 import { FaFileExcel, FaEnvelopeCircleCheck, FaImage, FaFilePdf  } from 'react-icons/fa6';
@@ -139,50 +138,6 @@ function Estadisticas({ rol }) {
   };
 
 
-  // Función para exportar a Excel
- const exportarAExcelCategoria = () => {
-  // Convertir los datos JSON a una hoja de trabajo de Excel
-  const worksheet = XLSX.utils.json_to_sheet(ventasPorCategoria);
-  const workbook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(workbook, worksheet, 'Ventas Por Categoria');
-
-  // Generar y descargar el archivo Excel
-  XLSX.writeFile(workbook, 'Ventas por categoria.xlsx');
-};
-  
-const exportarAExcel = () => {
-  // Convertir los datos JSON a una hoja de trabajo de Excel
-  const worksheet = XLSX.utils.json_to_sheet(productosMasVendido);
-  const workbook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(workbook, worksheet, 'Productos mas vendidos');
-
-  // Generar y descargar el archivo Excel
-  XLSX.writeFile(workbook, 'Productos mas Vendidos.xlsx');
-};
-
-const exportarAExcelTopventas = () => {
-  // Convertir los datos JSON a una hoja de trabajo de Excel
-  const worksheet = XLSX.utils.json_to_sheet(topVentas);
-  const workbook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(workbook, worksheet, 'Top Productos vendidos');
-
-  // Generar y descargar el archivo Excel
-  XLSX.writeFile(workbook, 'Top 5 productos mas vendidos.xlsx');
-};
-
-const exportarAExcelventasprstock = () => {
-  // Convertir los datos JSON a una hoja de trabajo de Excel
-  const worksheet = XLSX.utils.json_to_sheet(ventasPorStock);
-  const workbook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(workbook, worksheet, 'Stock vendido');
-
-  // Generar y descargar el archivo Excel
-  XLSX.writeFile(workbook, 'Ventas de producto por stock.xlsx');
-};
-
-
-
-  
 
 
 
@@ -194,28 +149,28 @@ const exportarAExcelventasprstock = () => {
   }, []); 
 
   useEffect(() => {
-    fetch('http://localhost:5000/estadisticas/Productosmasvendidosysucantidadtotalvendida')
+    fetch('http://localhost:5000/crudRoutes2/Productosmasvendidosysucantidadtotalvendida')
       .then((response) => response.json())
       .then((data) => setProductosMasVendidos(data))
       .catch((error) => console.error('Error al obtener los productos mas vendidos:', error));
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:5000/estadisticas/ventasporcategoriadeproducto')
+    fetch('http://localhost:5000/crudRoutes2/ventasporcategoriadeproducto')
       .then((response) => response.json())
       .then((data) => setVentasPorCategoria(data))
       .catch((error) => console.error('Error al obtener las ventas por categoria:', error));
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:5000/estadisticas/ventasdeproductoporstock')
+    fetch('http://localhost:5000/crudRoutes2/ventasdeproductoporstock')
       .then((response) => response.json())
       .then((data) => setVentasPorStock(data))
       .catch((error) => console.error('Error al obtener las ventas por stock:', error));
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:5000/estadisticas/top5ventasporproducto')
+    fetch('http://localhost:5000/crudRoutes2/top5ventasporproducto')
       .then((response) => response.json())
       .then((data) => setTopVentas(data))
       .catch((error) => console.error('Error al obtener los top de venta:', error));
@@ -461,7 +416,7 @@ const exportarAExcelventasprstock = () => {
   };
 
   const generarReporteProductoMasVendido = () => {
-    fetch('http://localhost:5000/estadisticas/Productosmasvendidosysucantidadtotalvendida')  // Realiza una solicitud GET al servidor para obtener productos
+    fetch('http://localhost:5000/crudRoutes2/Productosmasvendidosysucantidadtotalvendida')  // Realiza una solicitud GET al servidor para obtener productos
       .then((response) => response.json())  // Convierte la respuesta a formato JSON
       .then((productos) => {
         const doc = new jsPDF();  // Crea un nuevo documento PDF con jsPDF
@@ -486,7 +441,7 @@ const exportarAExcelventasprstock = () => {
   };
 
   const generarReporteVentasCategoria = () => {
-    fetch('http://localhost:5000/estadisticas/ventasporcategoriadeproducto')  // Realiza una solicitud GET al servidor para obtener productos
+    fetch('http://localhost:5000/crudRoutes2/ventasporcategoriadeproducto')  // Realiza una solicitud GET al servidor para obtener productos
       .then((response) => response.json())  // Convierte la respuesta a formato JSON
       .then((productos) => {
         const doc = new jsPDF();  // Crea un nuevo documento PDF con jsPDF
@@ -511,7 +466,7 @@ const exportarAExcelventasprstock = () => {
   };
 
   const generarReporteVentaStock = () => {
-    fetch('http://localhost:5000/estadisticas/ventasdeproductoporstock')  // Realiza una solicitud GET al servidor para obtener productos
+    fetch('http://localhost:5000/crudRoutes2/ventasdeproductoporstock')  // Realiza una solicitud GET al servidor para obtener productos
       .then((response) => response.json())  // Convierte la respuesta a formato JSON
       .then((productos) => {
         const doc = new jsPDF();  // Crea un nuevo documento PDF con jsPDF
@@ -536,7 +491,7 @@ const exportarAExcelventasprstock = () => {
   };
 
   const generarReporteVentaTop5 = () => {
-    fetch('http://localhost:5000/estadisticas/top5ventasporproducto')  // Realiza una solicitud GET al servidor para obtener productos
+    fetch('http://localhost:5000/crudRoutes2/top5ventasporproducto')  // Realiza una solicitud GET al servidor para obtener productos
       .then((response) => response.json())  // Convierte la respuesta a formato JSON
       .then((productos) => {
         const doc = new jsPDF();  // Crea un nuevo documento PDF con jsPDF
@@ -571,7 +526,7 @@ const exportarAExcelventasprstock = () => {
       // Añade un texto al documento PDF
       pdf.text("Reporte de Estado de Almacén", 20, 10);
       // Añade la imagen capturada del gráfico al documento PDF, con ajustes de coordenadas y tamaño
-      pdf.addImage(imgData, 'PNG', 10, 20, 100, 100);
+      pdf.addImage(imgData, 'PNG', 10, 20, 180, 180);
       // Guarda el documento PDF con un nombre específico
       pdf.save("reporte_almacen_con_grafico.pdf");
     } catch (error) {
@@ -591,7 +546,7 @@ const exportarAExcelventasprstock = () => {
       // Añade un texto al documento PDF
       pdf.text("Reporte del producto más vendido", 20, 10);
       // Añade la imagen capturada del gráfico al documento PDF, con ajustes de coordenadas y tamaño
-      pdf.addImage(imgData, 'PNG', 10, 20, 100, 100);
+      pdf.addImage(imgData, 'PNG', 10, 20, 180, 180);
       // Guarda el documento PDF con un nombre específico
       pdf.save("reporte_producto_mas_vendido.pdf");
     } catch (error) {
@@ -611,7 +566,7 @@ const exportarAExcelventasprstock = () => {
       // Añade un texto al documento PDF
       pdf.text("Reporte del producto más vendido", 20, 10);
       // Añade la imagen capturada del gráfico al documento PDF, con ajustes de coordenadas y tamaño
-      pdf.addImage(imgData, 'PNG', 10, 20, 100, 100);
+      pdf.addImage(imgData, 'PNG', 10, 20, 180, 180);
       // Guarda el documento PDF con un nombre específico
       pdf.save("reporte_ventas_categoria.pdf");
     } catch (error) {
@@ -631,7 +586,7 @@ const exportarAExcelventasprstock = () => {
       // Añade un texto al documento PDF
       pdf.text("Reporte del producto más vendido", 20, 10);
       // Añade la imagen capturada del gráfico al documento PDF, con ajustes de coordenadas y tamaño
-      pdf.addImage(imgData, 'PNG', 10, 20, 100, 100);
+      pdf.addImage(imgData, 'PNG', 10, 20, 180, 180);
       // Guarda el documento PDF con un nombre específico
       pdf.save("reporte_venta_stock.pdf");
     } catch (error) {
@@ -651,7 +606,7 @@ const exportarAExcelventasprstock = () => {
       // Añade un texto al documento PDF
       pdf.text("Reporte del producto más vendido", 20, 10);
       // Añade la imagen capturada del gráfico al documento PDF, con ajustes de coordenadas y tamaño
-      pdf.addImage(imgData, 'PNG', 10, 20, 100, 100);
+      pdf.addImage(imgData, 'PNG', 10, 20, 180, 180);
       // Guarda el documento PDF con un nombre específico
       pdf.save("reporte_venta_top_5.pdf");
     } catch (error) {
@@ -660,8 +615,51 @@ const exportarAExcelventasprstock = () => {
     }
   };
 
- 
 
+  const imprimirEstadisticas = () => {
+    console.log("Imprimiendo estadísticas...");
+  }
+
+ // Función para exportar a Excel
+ const exportarAExcelCategoria = () => {
+  // Convertir los datos JSON a una hoja de trabajo de Excel
+  const worksheet = XLSX.utils.json_to_sheet(ventasPorCategoria);
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'Ventas Por Categoria');
+
+  // Generar y descargar el archivo Excel
+  XLSX.writeFile(workbook, 'Ventas por categoria.xlsx');
+};
+  
+const exportarAExcel = () => {
+  // Convertir los datos JSON a una hoja de trabajo de Excel
+  const worksheet = XLSX.utils.json_to_sheet(productosMasVendido);
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'Productos mas vendidos');
+
+  // Generar y descargar el archivo Excel
+  XLSX.writeFile(workbook, 'Productos mas Vendidos.xlsx');
+};
+
+const exportarAExcelTopventas = () => {
+  // Convertir los datos JSON a una hoja de trabajo de Excel
+  const worksheet = XLSX.utils.json_to_sheet(topVentas);
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'Top Productos vendidos');
+
+  // Generar y descargar el archivo Excel
+  XLSX.writeFile(workbook, 'Top 5 productos mas vendidos.xlsx');
+};
+
+const exportarAExcelventasprstock = () => {
+  // Convertir los datos JSON a una hoja de trabajo de Excel
+  const worksheet = XLSX.utils.json_to_sheet(ventasPorStock);
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'Stock vendido');
+
+  // Generar y descargar el archivo Excel
+  XLSX.writeFile(workbook, 'Ventas de producto por stock.xlsx');
+};
 
   return (
     <div>
@@ -680,7 +678,6 @@ const exportarAExcelventasprstock = () => {
                 <Button onClick={generarReporteAlmacenImg}>
                   Generar reporte con imagen
                 </Button>
-                             
               </Card.Body>
 
             </Card>
@@ -688,29 +685,25 @@ const exportarAExcelventasprstock = () => {
 
 
           <Col xs={12} md={6}>
-           <Card className="mb-4">
-            <Card.Header>Producto más vendido</Card.Header>
-            <Card.Body>
-            <canvas id="graficoProductoMasVendido"></canvas>
-           <div className="d-flex justify-content-between m-1">
-          <Button onClick={generarReporteProductoMasVendido} className="m-1">
-          <FaFilePdf style={{ color: 'white' }} />
-            </Button>
-        <Button onClick={generarRepProductoMasVendidoImg}>
-        < FaImage style={{ color: 'white' }} />
-             </Button>                                                                 
-             <Button variant="secondary" onClick={enviarCorreo1} className="m-1">
+            <Card className="mb-4">
+              <Card.Header>Producto más vendido</Card.Header>
+              <Card.Body>
+                <canvas id="graficoProductoMasVendido"></canvas>
+                <Button onClick={generarRepProductoMasVendidoImg} className="m-1">
+                <FaFilePdf style={{ color: 'white' }} />
+                </Button>
+                <Button onClick={generarReporteProductoMasVendido} className="m-1">
+                < FaImage style={{ color: 'white' }} />
+                </Button>
+                <Button variant="secondary" onClick={enviarCorreo1} className="m-1">
              <FaEnvelopeCircleCheck style={{ color: 'white' }} />
-                </Button>   
-               
-                 <Button variant="success" onClick={exportarAExcel} className="m-1">
+                </Button> 
+                <Button variant="success" onClick={exportarAExcel} className="m-1">
                  <FaFileExcel style={{ color: 'white' }} />
-                 </Button>           
-            </div>
-            </Card.Body>
-             </Card>
-             </Col>
-
+                 </Button>
+              </Card.Body>
+            </Card>
+          </Col>
 
 
           <Col xs={12} md={6}>
@@ -718,43 +711,39 @@ const exportarAExcelventasprstock = () => {
               <Card.Header>Venta por Stock</Card.Header>
               <Card.Body>
                 <canvas id="graficoVentaPorStock"></canvas>
-                <div className="d-flex justify-content-between mt-3">
-                <Button onClick={generarReporteVentaStock}>
-                 <FaFilePdf style={{ color: 'white' }} />
+                <Button onClick={generarReporteVentaStock} className="m-1">
+                <FaFilePdf style={{ color: 'white' }} />
                 </Button>
-                <Button onClick={generarReporteVentaStockImg}>
-                  < FaImage style={{ color: 'white' }} />
+                <Button onClick={generarReporteVentaStockImg} className="m-1">
+                < FaImage style={{ color: 'white' }} />
                 </Button>
-                <Button variant="secondary" onClick={enviarCorreo3} className="me-2">
+                <Button variant="secondary" onClick={enviarCorreo3} className="m-1">
                   <FaEnvelopeCircleCheck style={{ color: 'white' }} />
-                </Button> 
+                </Button>
                 <Button variant="success" onClick={exportarAExcelventasprstock} className="m-1">
                  <FaFileExcel style={{ color: 'white' }} />
                  </Button>
-                </div>
               </Card.Body>
             </Card>
           </Col>
 
-          <Col xs={12} md={6}>
+          <Col xs={11} md={6}>
             <Card className="mb-4">
               <Card.Header>Venta por categoria</Card.Header>
               <Card.Body>
                 <canvas id="graficoVentaPorCategoria"></canvas>
-                <div className="d-flex justify-content-between mt-3">
-                <Button onClick={generarReporteVentasCategoria}>
-                 <FaFilePdf style={{ color: 'white' }} />
+                <Button onClick={generarReporteVentasCategoria} className="m-1">
+                <FaFilePdf style={{ color: 'white' }} />
                 </Button>
-                <Button onClick={generarReporteVentasCategoriaImg}>
-                   < FaImage style={{ color: 'white' }} />
+                <Button onClick={generarReporteVentasCategoriaImg} className="m-1">
+                < FaImage style={{ color: 'white' }} />
                 </Button>
-                <Button variant="secondary" onClick={enviarCorreo2} className="me-2">
+                <Button variant="secondary" onClick={enviarCorreo2} className="m-1">
                   <FaEnvelopeCircleCheck style={{ color: 'white' }} />
                 </Button> 
-                 <Button variant="success" onClick={exportarAExcelCategoria} className="m-1">
+                <Button variant="success" onClick={exportarAExcelCategoria} className="m-1">
                  <FaFileExcel style={{ color: 'white' }} />
                  </Button>
-                </div>
               </Card.Body>
             </Card>
           </Col>
@@ -764,12 +753,11 @@ const exportarAExcelventasprstock = () => {
               <Card.Header>Top 5 de Ventas por Productos</Card.Header>
               <Card.Body>
                 <canvas id="graficoTopVenta"></canvas>
-                <div className="d-flex justify-content-between m-1">
                 <Button onClick={generarReporteVentaTop5} className="m-1">
-                  <FaFilePdf style={{ color: 'white' }} />
+                <FaFilePdf style={{ color: 'white' }} />
                 </Button>
                 <Button onClick={generarReporteVentaTop5Img} className="m-1">
-                  < FaImage style={{ color: 'white' }} />
+                < FaImage style={{ color: 'white' }} />
                 </Button>
                 <Button variant="secondary" onClick={enviarCorreo4} className="m-1">
                   <FaEnvelopeCircleCheck style={{ color: 'white' }} />
@@ -777,11 +765,9 @@ const exportarAExcelventasprstock = () => {
                 <Button variant="success" onClick={exportarAExcelTopventas} className="m-1">
                  <FaFileExcel style={{ color: 'white' }} />
                  </Button>
-                </div>
               </Card.Body>
             </Card>
           </Col>
-
 
         </Row>
       </Container>

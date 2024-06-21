@@ -22,8 +22,8 @@ app.use((err, req, res, next) => {
 // Configuración de la conexión a la base de datos
 const db = mysql.createConnection({
   host: 'localhost',
-  user: 'root',
-  password: 'milton1234',
+  user: 'admin',
+  password: 'admin1234',
   database: 'judelkin',
 });
 
@@ -42,9 +42,9 @@ app.use('/crud', crudRoutes);
 // Configuración de la conexión a la segunda base de datos
 const db2 = mysql.createConnection({
   host: 'localhost',
-  user: 'root',
-  password: 'milton1234',
-  database: 'control',
+  user: 'admin',
+  password: 'admin1234',
+  database: 'judelkin_dm',
 });
 
 db2.connect((err) => {
